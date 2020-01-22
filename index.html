@@ -150,7 +150,8 @@
 
                     <div class="ukaea">
                         <p>A small note</p>
-                        <p>I will use <strong>C++</strong> examples, but it can be applied to other languages</p>   
+                        <p>I will use <font color="green"><strong>C++</strong></font> examples, but it can be applied to other languages</p>  
+                        <p>I will use <font color="blue"><strong>I</strong></font> to denote an interface (pure abstract class) for names</p>   
                     </div>
     
             </section>
@@ -455,6 +456,82 @@ void testPlot(std::shared_ptr< Plot >& plot,
     
             </section>
 
+            <!-- I is for ... -->
+            <section id="i-slide" data-state="headerI">
+
+                    <style>.headerI header:after { content: "I = Interface segregation"; }</style>
+                    <p>No client should be forced to depend on methods it does not use or need</p>
+                    <img data-src="./assets/complex.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                    <p>Favour smaller, concise interfaces over larger interfaces</p>
+                </section>
+    
+                <!-- I is for ... -->
+                <section id="i-slide2" data-state="headerI2">
+    
+                    <style>.headerI2 header:after { content: "I"; }</style>
+                    <div class="ukaea">
+                        <p><font color="red">Don't do this</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>// very abstract interface
+struct IEverything{
+    virtual void validate() const = 0;
+    virtual void reset() = 0;
+
+    virtual int operator()() const = 0;
+    virtual void operator()(int value) = 0;
+    virtual operator bool() const = 0;
+
+    // many others
+};
+                            </code></pre>
+                        </div>
+                    </div>
+    
+                </section>
+
+            <!-- L is for ... -->
+            <section id="l-slide4" data-state="headerL2">
+
+                    <style>.headerL2 header:after { content: "L"; }</style>
+                    <div class="ukaea">
+                        <p><strong>Why is this bad?</strong></p>
+                        <div style="text-align: left;margin-left:30px">
+                            <p>We should look at the single responsibility principle again</p>
+                            <p>And the Liskov substitution principle</p>
+                            <p>What if we want to build something that can be reset but not validated?</p>
+                            <p>Again, testing is difficult - we must implement every method</p>
+                        </div>
+                    </div>
+    
+            </section>
+
+                <!-- I is for ... -->
+                <section id="i-slide2" data-state="headerI2">
+    
+                        <style>.headerI2 header:after { content: "I"; }</style>
+                        <div class="ukaea">
+                            <p><font color="green">This is better</font></p>
+                            <div style="text-align: center;">
+                                <pre><code class="cpp" data-trim data-noescape contenteditable>// beware the 'ible's
+struct IResetible{
+    virtual void reset() = 0;
+};
+
+struct IValidatible{
+    virtual void validate() const = 0;
+};
+
+struct ISimpleAccess{
+    virtual int operator()() const = 0;
+    virtual void operator()(int value) = 0;
+    virtual operator bool() const = 0;
+};
+                                </code></pre>
+                            </div>
+                        </div>
+        
+                </section>
+                
             <!-- Summary Slide -->
             <section id="summary-slide">
 

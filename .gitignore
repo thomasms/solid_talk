@@ -32,6 +32,8 @@
 *.app
 
 
+**/.vscode/**
+
 code/**/good
 code/**/good.txt
 code/**/bad
