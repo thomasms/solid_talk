@@ -318,7 +318,7 @@ struct PlasmaComputeProcess : public INonConstProcess{
     void add(const std::shared_ptr< INonConstProcess >& process){
         _processes.push_back(process);
     }
-    void go() const{
+    void run() const{
         for(auto& process: _processes)
             process->go();
     }
@@ -361,7 +361,7 @@ struct PlasmaComputeProcess : public INonConstProcess{
 
 ProcessManager manager;
 manager.add(std::make_shared< MockPlasmaComputeProcess >());
-manager.go();
+manager.run();
 
 </code></pre>
                         </div>

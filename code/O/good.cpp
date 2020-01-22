@@ -88,7 +88,7 @@ struct ProcessManager{
         return *this;
     }
 
-    void go() const{
+    void run() const{
         for(auto& process: _processes){
             process->go();
         }
@@ -120,7 +120,7 @@ int main(int argv, char** argc){
            .add(std::make_shared<PlasmaComputeProcess>(c1, 3.4))
            .add(std::make_shared<PlasmaOutputProcess>(c1))
            .add(std::make_shared<PlasmaWriteProcess>(c1, "good.txt"))
-           .go();
+           .run();
 
     return 0;
 }
