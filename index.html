@@ -66,7 +66,7 @@
             <section id="title-slide">
 
                 <div class="ukaea">
-                    <h1>How to be a <font color="red">S</font><font color="green">O</font><font color="blue">L</font><font color="pink">I</font><font color="orange">D</font> programmer</h1>
+                    <h2>How to be a <font color="red">S</font><font color="green">O</font><font color="blue">L</font><font color="pink">I</font><font color="orange">D</font> programmer</h2>
                     <p>Thomas Stainer</p>
                     <p>24/01/2020</p>
                 </div>
@@ -77,7 +77,7 @@
             <section id="intro-slide">
 
                 <div class="ukaea">
-                    <h1><font color="red">S</font><font color="green">O</font><font color="blue">L</font><font color="pink">I</font><font color="orange">D</font> principles</h1>
+                    <h2><font color="red">S</font><font color="green">O</font><font color="blue">L</font><font color="pink">I</font><font color="orange">D</font> principles</h2>
                     <div style="text-align: left">
                       <ul>
                           <li>Term originating from 2000's</li>
@@ -140,7 +140,7 @@
                     </div>         
                     <br />     
                     <!-- <img data-src="./assets/solid.jpg" height="200" width="200" align="middle" style="background:none; border:1px solid black; box-shadow:none;"> -->
-                    <p>Some examples of each...</p>
+                    <p>Learn by example...</p>
                 </div>
 
             </section>
@@ -158,7 +158,7 @@
             <!-- S is for ... -->
             <section id="s-slide" data-state="headerS">
 
-                <style>.headerS header:after { content: "Single responsibility"; }</style>
+                <style>.headerS header:after { content: "S = Single responsibility"; }</style>
                 <div class="ukaea">
                     <p>A class should do <strong>one</strong> thing</p>
                     <p>It should have only <strong>one reason</strong> to change</p>
@@ -243,7 +243,7 @@ struct MyBetterClassPlotter{
             <!-- O is for ... -->
             <section id="o-slide" data-state="headerO">
 
-                <style>.headerO header:after { content: "Open/Closed"; }</style>
+                <style>.headerO header:after { content: "O = Open/Closed"; }</style>
                 <div class="ukaea">
                     <p>A class should be <strong>open</strong> for <strong>extension</strong>, but <strong>closed</strong> for <strong>modification</strong></p>
                 </div>
@@ -372,9 +372,9 @@ manager.go();
             <!-- L is for ... -->
             <section id="l-slide" data-state="headerL">
 
-                    <style>.headerL header:after { content: "Liskov substitution"; }</style>
+                    <style>.headerL header:after { content: "L = Liskov substitution"; }</style>
                     <div class="ukaea">
-                        <p>If <strong>S</strong> is a subtype of <strong>T</strong>, then objects of type <strong>T</strong> may be replaced with objects of type <strong>S</strong> without altering the correctness of the program</p>
+                        <p>If <strong>S</strong> is a subtype of <strong>T</strong>, then objects of type <strong>T</strong> may be replaced with objects of type <strong>S</strong> without altering the correctness (no side effects) of the program</p>
                     </div>
                     <br />
                     <br />
@@ -389,22 +389,24 @@ manager.go();
                     <div class="ukaea">
                         <p><font color="red">Don't do this</font></p>
                         <div style="text-align: center;">
-                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct Plotter{
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct Plot{
     virtual void setXLabel(std::string label){
         _xlabel = label;
     }    
     virtual void setYLabel(std::string label){
         _ylabel = label;
     }
-    // other stuff
+    // getters + other stuff + member vars
 }</code></pre>
-                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct HistogramPlotter : public Plotter{
-    HistogramPlotter() : _ylabel("counts") {}
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct NormalisedHistogramPlot : public Plot{
+    NormalisedHistogramPlot() : _ylabel("counts") {}
 
-    virtual void setYLabel(std::string label){
-        // does nothing or throws exception 
-        // since histogram y label (in this case)
+    virtual void setYLabel(std::string label) override{
+        // problem: Throws exception 
+        // since normalised histogram y label (in this case)
         // has a fixed ylabel 
+        throw std::runtime_error(
+            "NormalisedHistogramPlot::setYLabel - Should not be called!");
     }
 }</code></pre>
                         </div>
@@ -419,8 +421,35 @@ manager.go();
                     <div class="ukaea">
                         <p><font color="red">At call site</font></p>
                         <div style="text-align: center;">
-                            <pre><code class="cpp" data-trim data-noescape contenteditable>void makePlot(const )
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>// a silly test for demonstration purposes only
+void testPlot(std::shared_ptr< Plot >& plot, 
+              std::string property)
+{
+    plot->setXLabel("Energy (eV)");
+    // this will throw an exception for NormalisedHistogramPlot
+    plot->setYLabel(property);
+
+    assert(plot->getXLabel() == "Energy (eV)");
+    assert(plot->getYLabel() == property);
+}        
                             </code></pre>
+                        </div>
+                    </div>
+    
+            </section>
+
+            <!-- L is for ... -->
+            <section id="l-slide4" data-state="headerL2">
+
+                    <style>.headerL2 header:after { content: "L"; }</style>
+                    <div class="ukaea">
+                        <p><strong>Why is this bad?</strong></p>
+                        <div style="text-align: left;margin-left:30px">
+                            <p>Fundamental architecture problem</p>
+                            <p><code>NormalisedHistogramPlot</code> is not a <code>Plot</code></p>
+                            <p>Not a <strong>is-a</strong> relationship</p>
+                            <p>It is a <strong>has-a</strong> relationship - use composition</p>
+                            <p>Better to rethink your object relationships and architecture</p>
                         </div>
                     </div>
     
@@ -430,15 +459,16 @@ manager.go();
             <section id="summary-slide">
 
                 <div class="ukaea">
-                    <h1>Summary</h1>
+                    <h2>Summary</h2>
                     <div style="text-align: left;margin-left:30px">
                         <p><font color="blue">Think before you write</font></p>
                         <ul>
                             <li>SOLID is a guideline for writing good, maintainable code</li>
-                            <li>SOLID can should be applied to OO - Java, C#. Even C++ and Python</li>
+                            <li>SOLID can should be applied to OO - Java, C#. Even C++, Fortran and Python</li>
                             <li>SOLID code can make your life easier in the long run!</li>
                         </ul>
                     </div>
+                    <p>Full example code for each S-O-L-I-D and these slides available at <a href="https://github.com/thomasms/solid_talk">https://github.com/thomasms/solid_talk</a></p>
                 </div>
                 
             </section>
