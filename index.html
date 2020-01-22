@@ -490,9 +490,9 @@ struct IEverything{
                 </section>
 
             <!-- L is for ... -->
-            <section id="l-slide4" data-state="headerL2">
+            <section id="i-slide3" data-state="headerI2">
 
-                    <style>.headerL2 header:after { content: "L"; }</style>
+                    <style>.headerI2 header:after { content: "I"; }</style>
                     <div class="ukaea">
                         <p><strong>Why is this bad?</strong></p>
                         <div style="text-align: left;margin-left:30px">
@@ -506,7 +506,7 @@ struct IEverything{
             </section>
 
                 <!-- I is for ... -->
-                <section id="i-slide2" data-state="headerI2">
+                <section id="i-slide4" data-state="headerI2">
     
                         <style>.headerI2 header:after { content: "I"; }</style>
                         <div class="ukaea">
@@ -517,7 +517,7 @@ struct IResetible{
     virtual void reset() = 0;
 };
 
-struct IValidatible{
+struct IConstValidatible{
     virtual void validate() const = 0;
 };
 
@@ -527,11 +527,31 @@ struct ISimpleAccess{
     virtual operator bool() const = 0;
 };
                                 </code></pre>
+                                <pre><code class="cpp" data-trim data-noescape contenteditable>// multiple inheritance for interfaces
+struct NoCheatGuesser : public IConstValidatible,
+                        public ISimpleAccess // no IResetible to avoid resetting guess count
+{
+    //...
+}
+                                </code></pre>
                             </div>
                         </div>
         
                 </section>
                 
+            <!-- D is for ... -->
+            <section id="d-slide" data-state="headerD">
+
+                    <style>.headerD header:after { content: "D = Dependency inversion"; }</style>
+                    <div class="ukaea">
+                        <p>Depend on <strong>abstractions</strong> (interfaces) not <strong>concretions</strong> (implementation)</p>
+                    </div>
+                    <p>High level modules should not depend on low level modules</p>
+                    <p>Abstractions should not depend on details</p>
+            </section>
+
+            <!-- Finish D by example - DB connection is a good one -->
+
             <!-- Summary Slide -->
             <section id="summary-slide">
 
