@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+
+code/**/good
+code/**/good.txt
+code/**/bad
+code/**/bad.txt

@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>How to be a SOLID programmer</title>
+
+        <meta name="description" content="SOLID principles in action">
+        <meta name="author" content="Thomas Stainer">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <style>
+            .reveal .slide-number {
+                font-size: 28px;
+            }
+            .pdf-page{
+                background: #fff;
+                max-height: 727px;
+            }
+            body > div.reveal.slide.center.has-vertical-slides.has-horizontal-slides.ready > div.slides > section:nth-child(n) > div:nth-child(1) > section{
+                 top: 14px !important;
+            }
+            .topright {
+                position: relative;
+            }
+            .topright img {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+            }
+            .bottomleft {
+                position: relative;
+            }
+            .bottomleft img {
+                position: fixed;
+                width: 135% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                bottom: -35px;
+                left: -155px;
+            }
+            .nomargin {
+                margin: 0px 0px 0px 0px !important;
+            }
+        </style>
+    </head>
+    
+    <body>
+
+        <div class="reveal">
+        
+            <!-- custom header for showing letters of acroynm in various slides. use data-state="header1" in section required -->
+            <header style="position: absolute;top: 50px; left: 100px; z-index:500; font-size:70px;color: rgba(0, 81, 255, 0.671);"></header>
+
+            <div class="slides">
+            
+            <!-- Title Slide -->
+            <section id="title-slide">
+
+                <div class="ukaea">
+                    <h1>How to be a <font color="red">S</font><font color="green">O</font><font color="blue">L</font><font color="pink">I</font><font color="orange">D</font> programmer</h1>
+                    <p>Thomas Stainer</p>
+                    <p>24/01/2020</p>
+                </div>
+
+            </section>
+
+            <!-- Intro Slide -->
+            <section id="intro-slide">
+
+                <div class="ukaea">
+                    <h1><font color="red">S</font><font color="green">O</font><font color="blue">L</font><font color="pink">I</font><font color="orange">D</font> principles</h1>
+                    <div style="text-align: left">
+                      <ul>
+                          <li>Term originating from 2000's</li>
+                          <li>Some ideas date back to 80's</li>
+                          <li>Typically applied to <strong>OO</strong> programming</li>
+                          <li>Very common in <strong>Java</strong> and <strong>C#</strong></li>
+                          <li>Can be applied to other languages & methodologies</li>
+                          <li>Not really principles - more guidelines & philosophy</li>
+                      </ul>
+                    </div>
+                </div>
+
+            </section>
+            
+            <!-- Motivation Slide -->
+            <section id="motivation-slide">
+
+                <div class="ukaea">
+                    <p><font color="red">Why bother?</font> - Computers only care about bytes!</p>
+                    <!-- <div style="text-align: left"> -->
+                      <ul>
+                          <li>Humans develop code, not machines (yet)</li>
+                          <li>Humans work with other humans to develop code</li>
+                          <li>Humans need to understand other humans' code</li>
+                          <li>Humans writing code cost money</li>
+                      </ul>
+                </div>
+
+            </section>
+
+            <!-- Motivation Slide -->
+            <section id="motivation2-slide">
+
+                <div class="ukaea">
+                    <p><font color="green">Things change</font></p>
+                    <!-- <div style="text-align: left"> -->
+                      <ul>
+                          <li>Changes cause other changes</li>
+                          <li>Cascade of changes follow from one small change</li>
+                          <li>You didn't plan for your application to change like this</li>
+                      </ul>                    
+                      <p>Implementing one small change can break everything and be very costly!</p>
+                      <img data-src="./assets/spaghetti.jpg" height="200" width="200" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                </div>
+
+            </section>
+
+            <!-- Principles Slide -->
+            <section id="motivation2-slide">
+
+                <div class="ukaea">
+                    <div style="text-align: left">
+                      <ul style="list-style-type:none;font-size:54px;">
+                        <li><font color="green">S</font>&nbsp - Single responsibility</li>
+                        <li><font color="green">O</font> - Open-Closed</li>
+                        <li><font color="green">L</font>&nbsp - Liskov substitution</li>
+                        <li><font color="green">I</font>&nbsp&nbsp - Interface segregation</li>
+                        <li><font color="green">D</font> - Dependency inversion</li>
+                      </ul>      
+                    </div>         
+                    <br />     
+                    <!-- <img data-src="./assets/solid.jpg" height="200" width="200" align="middle" style="background:none; border:1px solid black; box-shadow:none;"> -->
+                    <p>Some examples of each...</p>
+                </div>
+
+            </section>
+
+            <!-- Notes Slide -->
+            <section id="notes-slide">
+
+                    <div class="ukaea">
+                        <p>A small note</p>
+                        <p>I will use <strong>C++</strong> examples, but it can be applied to other languages</p>   
+                    </div>
+    
+            </section>
+
+            <!-- S is for ... -->
+            <section id="s-slide" data-state="headerS">
+
+                <style>.headerS header:after { content: "Single responsibility"; }</style>
+                <div class="ukaea">
+                    <p>A class should do <strong>one</strong> thing</p>
+                    <p>It should have only <strong>one reason</strong> to change</p>
+                </div>
+                <img data-src="./assets/one.jpg" height="300" width="200" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+
+            </section>
+
+            <!-- S is for ... -->
+            <section id="s-slide2" data-state="headerS2">
+
+                <style>.headerS2 header:after { content: "S"; }</style>
+                <div class="ukaea">
+                    <p><font color="red">Don't do this</font></p>
+                    <div style="text-align: center">
+                        <pre><code class="cpp" data-trim data-noescape contenteditable>struct MyBadClass{
+    double calculateTheta(){
+        // complex calculation
+        return theta;
+    }   
+
+    void toFile(std::string filename) const{
+        // formatting here
+    }
+
+    void plot() const{
+        // plotting
+    }   
+    // ...
+};</code></pre>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- S is for ... -->
+            <section id="s-slide3" data-state="headerS2">
+
+                    <div class="ukaea">
+                        <p><strong>Why is this bad?</strong></p>
+                        <div style="text-align: left;margin-left:30px">
+                            <p>Before, we had an object responsible for <font color="blue">logic</font>, 
+                                <font color="red">formatting</font>, <font color="green">serialization</font> and 
+                                <font color="orange">visualisation</font> </p>
+                            <p>If we wanted to change the file format, we must change the class, even though the logic remains the same</p>
+                            <p>Forces others to adopt changes, can cause merge conflicts, dependency issues, ...</p>
+                            <p>How do you <font color="green">test</font> <code class="cpp" data-trim data-noescape>MyBadClass</code>?</p>
+                        </div>
+                    </div>
+    
+                </section>
+
+            <!-- S is for ... -->
+            <section id="s-slide4" data-state="headerS2">
+
+                <div class="ukaea">
+                    <p><font color="green">This is better</font></p>
+                    <div style="text-align: center">
+                        <pre><code class="cpp" data-trim data-noescape contenteditable>struct MyBetterClass{
+    double calculateTheta(){
+        // complex calculation
+        return theta;
+    }   
+    // other theta related stuff
+};</code></pre>
+
+<pre><code class="cpp" data-trim data-noescape contenteditable>// read and write operators
+istream& operator>>(istream& is, MyBetterClass& myclass);
+ostream& operator<<(ostream& os, const MyBetterClass& myclass);</code></pre>
+
+<pre><code class="cpp" data-trim data-noescape contenteditable>// create a separate plotter object
+struct MyBetterClassPlotter{
+    void operator()(const MyBetterClass& myclass) const{
+        // do plot
+    }
+};</code></pre>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- O is for ... -->
+            <section id="o-slide" data-state="headerO">
+
+                <style>.headerO header:after { content: "Open/Closed"; }</style>
+                <div class="ukaea">
+                    <p>A class should be <strong>open</strong> for <strong>extension</strong>, but <strong>closed</strong> for <strong>modification</strong></p>
+                </div>
+                <img data-src="./assets/open.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                <img data-src="./assets/closed.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                <p>Abstraction is key!</p>
+            </section>
+
+            <!-- O is for ... -->
+            <section id="o-slide2" data-state="headerO2">
+
+                <style>.headerO2 header:after { content: "O"; }</style>
+                <div class="ukaea">
+                    <p><font color="red">Don't do this</font></p>
+                    <div style="text-align: center;">
+                        <pre><code class="cpp" data-trim data-noescape contenteditable>void process(const std::vector< OptionEnum >& options, 
+             const MyPlasmaObject& obj){
+    for(auto option: options){
+        switch(option){
+            case DO_PLASMA_INIT:
+                obj.plasma_init();
+                // ...
+            case DO_PLASMA_COMPUTE:
+                // ...
+            case DO_PLASMA_READ_FROM_FILE:
+                // ...
+            case DO_PLASMA_WRITE_TO_FILE:
+                //.. 
+            case DO_PLASMA_END:
+                // ..
+        }
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- O is for ... -->
+            <section id="o-slide3" data-state="headerO2">
+
+                <div class="ukaea">
+                    <p><strong>Why is this bad?</strong></p>
+                    <div style="text-align: left;margin-left:30px">
+                        <p>If we want to add another process, we needed to add another enum and switch statement to the <code>process</code> function</p>
+                        <p>Before we know it we have 50+ switch statements, with 50+ enums!</p>
+                        <p>Again, how do you <font color="green">test</font> it?</p>
+                        <p>Here <code>process</code> is not closed for modification and not open for extension</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- O is for ... -->
+            <section id="o-slide4" data-state="headerO2">
+
+                    <style>.headerO2 header:after { content: "O"; }</style>
+                    <div class="ukaea">
+                        <p><font color="green">This is better</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct INonConstProcess{ // abstract base class
+    virtual void go() = 0;
+};
+
+struct PlasmaComputeProcess : public INonConstProcess{
+    PlasmaComputeProcess(MyPlasmaObject& obj) : _obj(obj) {}
+    virtual void go() { 
+        // logic here 
+    }
+};</code></pre>
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct ProcessManager{
+    void add(const std::shared_ptr< INonConstProcess >& process){
+        _processes.push_back(process);
+    }
+    void go() const{
+        for(auto& process: _processes)
+            process->go();
+    }
+    private:
+        std::vector< std::shared_ptr< INonConstProcess > > _processes;
+};</code></pre>
+                        </div>
+                    </div>
+    
+                </section>
+
+            <!-- O is for ... -->
+            <section id="o-slide5" data-state="headerO2">
+
+                    <div class="ukaea">
+                        <p><strong>Why is this better?</strong></p>
+                        <div style="text-align: left;margin-left:30px">
+                            <p>We've now made a <code>ProcessManager</code> to handle looping over all processes</p>
+                            <p>Code is more modular and easier to understand</p>
+                            <p>Now <code>ProcessManager</code> is closed for modification and is open for extension - just add a new process via <code>add</code></p>
+                            <p>No switch statement or any enums, just types</p>
+                            <p>Very easy to mock to test logic</p>
+                        </div>
+                    </div>
+    
+            </section>
+
+            <!-- O is for ... -->
+            <section id="o-slide6" data-state="headerO2">
+
+                    <div class="ukaea">
+                        <p><strong>Mocking is now easy</strong></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct MockPlasmaComputeProcess : public INonConstProcess{
+    virtual void go() { 
+        std::cout << "Hello from mock!"; 
+        // or asserts for testing library
+    }
+};
+
+ProcessManager manager;
+manager.add(std::make_shared< MockPlasmaComputeProcess >());
+manager.go();
+
+</code></pre>
+                        </div>
+                    </div>
+    
+            </section>
+
+            <!-- L is for ... -->
+            <section id="l-slide" data-state="headerL">
+
+                    <style>.headerL header:after { content: "Liskov substitution"; }</style>
+                    <div class="ukaea">
+                        <p>If <strong>S</strong> is a subtype of <strong>T</strong>, then objects of type <strong>T</strong> may be replaced with objects of type <strong>S</strong> without altering the correctness of the program</p>
+                    </div>
+                    <br />
+                    <br />
+                    <p>What does that even mean?</p>
+                    <p><strong>is-a</strong> or <strong>has-a</strong> relationship</p>
+            </section>
+
+            <!-- L is for ... -->
+            <section id="l-slide2" data-state="headerL2">
+
+                    <style>.headerL2 header:after { content: "L"; }</style>
+                    <div class="ukaea">
+                        <p><font color="red">Don't do this</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct Plotter{
+    virtual void setXLabel(std::string label){
+        _xlabel = label;
+    }    
+    virtual void setYLabel(std::string label){
+        _ylabel = label;
+    }
+    // other stuff
+}</code></pre>
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct HistogramPlotter : public Plotter{
+    HistogramPlotter() : _ylabel("counts") {}
+
+    virtual void setYLabel(std::string label){
+        // does nothing or throws exception 
+        // since histogram y label (in this case)
+        // has a fixed ylabel 
+    }
+}</code></pre>
+                        </div>
+                    </div>
+    
+            </section>
+
+            <!-- L is for ... -->
+            <section id="l-slide3" data-state="headerL2">
+
+                    <style>.headerL2 header:after { content: "L"; }</style>
+                    <div class="ukaea">
+                        <p><font color="red">At call site</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>void makePlot(const )
+                            </code></pre>
+                        </div>
+                    </div>
+    
+            </section>
+
+            <!-- Summary Slide -->
+            <section id="summary-slide">
+
+                <div class="ukaea">
+                    <h1>Summary</h1>
+                    <div style="text-align: left;margin-left:30px">
+                        <p><font color="blue">Think before you write</font></p>
+                        <ul>
+                            <li>SOLID is a guideline for writing good, maintainable code</li>
+                            <li>SOLID can should be applied to OO - Java, C#. Even C++ and Python</li>
+                            <li>SOLID code can make your life easier in the long run!</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </section>
+            
+        </div> <!-- End slides -->
+
+    </div> <!-- End reveal -->
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <script>
+        // Configuration for Reveal
+        Reveal.initialize({
+            // Display presentation control arrows
+            controls: true,
+
+            // Help the user learn the controls by providing hints, for example by
+            // bouncing the down arrow when they first encounter a vertical slide
+            controlsTutorial: true,
+
+            // Determines where controls appear, "edges" or "bottom-right"
+            controlsLayout: 'bottom-right',
+
+            // Visibility rule for backwards navigation arrows; "faded", "hidden"
+            // or "visible"
+            controlsBackArrows: 'faded',
+
+            // Display a presentation progress bar
+            progress: true,
+
+            // Set default timing of 2 minutes per slide
+            defaultTiming: 120,
+
+            // Display the page number of the current slide
+            slideNumber: 'c/t',
+
+            // Push each slide change to the browser history
+            history: false,
+
+            // Enable keyboard shortcuts for navigation
+            keyboard: true,
+
+            // Enable the slide overview mode
+            overview: true,
+
+            // Vertical centering of slides
+            center: true,
+
+            // Enables touch navigation on devices with touch input
+            touch: true,
+
+            // Loop the presentation
+            loop: false,
+
+            // Change the presentation direction to be RTL
+            rtl: false,
+
+            // Randomizes the order of slides each time the presentation loads
+            shuffle: false,
+
+            // Turns fragments on and off globally
+            fragments: true,
+
+            // Flags if the presentation is running in an embedded mode,
+            // i.e. contained within a limited portion of the screen
+            embedded: false,
+
+            // Flags if we should show a help overlay when the questionmark
+            // key is pressed
+            help: true,
+
+            // Flags if speaker notes should be visible to all viewers
+            showNotes: false,
+
+            // Global override for autoplaying embedded media (video/audio/iframe)
+            // - null: Media will only autoplay if data-autoplay is present
+            // - true: All media will autoplay, regardless of individual setting
+            // - false: No media will autoplay, regardless of individual setting
+            autoPlayMedia: null,
+
+            // Number of milliseconds between automatically proceeding to the
+            // next slide, disabled when set to 0, this value can be overwritten
+            // by using a data-autoslide attribute on your slides
+            autoSlide: 0,
+
+            // Stop auto-sliding after user input
+            autoSlideStoppable: true,
+
+            // Use this method for navigation when auto-sliding
+            autoSlideMethod: Reveal.navigateNext,
+
+            // Enable slide navigation via mouse wheel
+            mouseWheel: false,
+
+            // Hides the address bar on mobile devices
+            hideAddressBar: true,
+
+            // Opens links in an iframe preview overlay
+            // Add `data-preview-link` and `data-preview-link="false"` to customise each link
+            // individually
+            previewLinks: false,
+
+            // Transition style
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+            // Transition speed
+            transitionSpeed: 'default', // default/fast/slow
+
+            // Transition style for full page slide backgrounds
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Number of slides away from the current that are visible
+            viewDistance: 3,
+
+            // Parallax background image
+            parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+            // Parallax background size
+            parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+
+            // Number of pixels to move the parallax background per slide
+            // - Calculated automatically unless specified
+            // - Set to 0 to disable movement along an axis
+            parallaxBackgroundHorizontal: null,
+            parallaxBackgroundVertical: null,
+
+            // The display mode that will be used to show slides
+            display: 'block',
+
+            math: {
+                mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+    
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [
+                         { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                         { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                         { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                         { src: 'plugin/math/math.js', async: true }
+                         ]
+        });
+		</script>
+
+	</body>
+
+</html>
