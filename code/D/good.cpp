@@ -10,6 +10,10 @@
 #include "loggerlib2.hpp"
 
 // remember the I - only provide an interface for what you need
+// we dictate the interface we need
+// we invert the dependency
+// by depending on the interface
+// not the specific implementation of a logger
 struct ISimpleLogger{
     virtual void append(std::string message) = 0;
     virtual size_t size() const = 0;
@@ -127,7 +131,11 @@ std::ostream& operator<<(std::ostream& os, const ISimpleLogger& logger){
     return os;
 }
 
+// simple test function for running the class methods
+// and checking (and writing) the log
 void run(ISimpleLogger& logger, std::string filename){
+    // MyCoolClass now has a handle to the logger
+    // passed in at construction
     MyCoolClass cc(logger);
 
     cc.method1();
