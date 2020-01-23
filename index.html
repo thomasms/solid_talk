@@ -149,33 +149,33 @@
             <section id="notes-slide">
 
                     <div class="ukaea">
-                        <p>A small note</p>
                         <p>I will use <font color="green"><strong>C++</strong></font> examples, but it can be applied to other languages</p>  
                         <p>I will use <font color="blue"><strong>I</strong></font> to denote an interface (pure abstract class) for names</p>   
+                        <p>All examples in depth (along with these slides) are available at my <a href="https://github.com/thomasms/solid_talk">GitHub</a></p>   
                     </div>
     
             </section>
 
             <!-- S is for ... -->
-            <section id="s-slide" data-state="headerS">
+            <section id="s-slide">
 
-                <style>.headerS header:after { content: "S = Single responsibility"; }</style>
-                <div class="ukaea">
-                    <p>A class should do <strong>one</strong> thing</p>
-                    <p>It should have only <strong>one reason</strong> to change</p>
-                </div>
-                <img data-src="./assets/one.jpg" height="300" width="200" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                <section data-state="headerS">
+                    <style>.headerS header:after { content: "S = Single responsibility"; }</style>
+                    <div class="ukaea">
+                        <p>A class should do <strong>one</strong> thing</p>
+                        <p>It should have only <strong>one reason</strong> to change</p>
+                    </div>
+                    <img data-src="./assets/one.jpg" height="300" width="200" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
 
-            </section>
+                </section>
 
-            <!-- S is for ... -->
-            <section id="s-slide2" data-state="headerS2">
+                <section data-state="headerS2">
 
-                <style>.headerS2 header:after { content: "S"; }</style>
-                <div class="ukaea">
-                    <p><font color="red">Don't do this</font></p>
-                    <div style="text-align: center">
-                        <pre><code class="cpp" data-trim data-noescape contenteditable>struct MyBadClass{
+                    <style>.headerS2 header:after { content: "S"; }</style>
+                    <div class="ukaea">
+                        <p><font color="red">Don't do this</font></p>
+                        <div style="text-align: center">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct MyBadClass{
     double calculateTheta(){
         // complex calculation
         return theta;
@@ -190,13 +190,12 @@
     }   
     // ...
 };</code></pre>
+                        </div>
                     </div>
-                </div>
 
-            </section>
+                </section>
 
-            <!-- S is for ... -->
-            <section id="s-slide3" data-state="headerS2">
+                <section data-state="headerS2">
 
                     <div class="ukaea">
                         <p><strong>Why is this bad?</strong></p>
@@ -212,13 +211,12 @@
     
                 </section>
 
-            <!-- S is for ... -->
-            <section id="s-slide4" data-state="headerS2">
+                <section data-state="headerS2">
 
-                <div class="ukaea">
-                    <p><font color="green">This is better</font></p>
-                    <div style="text-align: center">
-                        <pre><code class="cpp" data-trim data-noescape contenteditable>struct MyBetterClass{
+                    <div class="ukaea">
+                        <p><font color="green">This is better</font></p>
+                        <div style="text-align: center">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>struct MyBetterClass{
     double calculateTheta(){
         // complex calculation
         return theta;
@@ -236,31 +234,33 @@ struct MyBetterClassPlotter{
         // do plot
     }
 };</code></pre>
+                        </div>
                     </div>
-                </div>
+
+                </section>
 
             </section>
 
             <!-- O is for ... -->
-            <section id="o-slide" data-state="headerO">
+            <section id="o-slide">
 
-                <style>.headerO header:after { content: "O = Open/Closed"; }</style>
-                <div class="ukaea">
-                    <p>A class should be <strong>open</strong> for <strong>extension</strong>, but <strong>closed</strong> for <strong>modification</strong></p>
-                </div>
-                <img data-src="./assets/open.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
-                <img data-src="./assets/closed.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
-                <p>Abstraction is key!</p>
-            </section>
+                <section data-state="headerO">
+                    <style>.headerO header:after { content: "O = Open/Closed"; }</style>
+                    <div class="ukaea">
+                        <p>A class should be <strong>open</strong> for <strong>extension</strong>, but <strong>closed</strong> for <strong>modification</strong></p>
+                    </div>
+                    <img data-src="./assets/open.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                    <img data-src="./assets/closed.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                    <p>Abstraction is key!</p>
+                </section>
 
-            <!-- O is for ... -->
-            <section id="o-slide2" data-state="headerO2">
+                <section data-state="headerO2">
 
-                <style>.headerO2 header:after { content: "O"; }</style>
-                <div class="ukaea">
-                    <p><font color="red">Don't do this</font></p>
-                    <div style="text-align: center;">
-                        <pre><code class="cpp" data-trim data-noescape contenteditable>void process(const std::vector< OptionEnum >& options, 
+                    <style>.headerO2 header:after { content: "O"; }</style>
+                    <div class="ukaea">
+                        <p><font color="red">Don't do this</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>void process(const std::vector< OptionEnum >& options, 
              const MyPlasmaObject& obj){
     for(auto option: options){
         switch(option){
@@ -278,28 +278,26 @@ struct MyBetterClassPlotter{
         }
     }
 }</code></pre>
+                        </div>
                     </div>
-                </div>
 
-            </section>
+                </section>
 
-            <!-- O is for ... -->
-            <section id="o-slide3" data-state="headerO2">
+                <section data-state="headerO2">
 
-                <div class="ukaea">
-                    <p><strong>Why is this bad?</strong></p>
-                    <div style="text-align: left;margin-left:30px">
-                        <p>If we want to add another process, we needed to add another enum and switch statement to the <code>process</code> function</p>
-                        <p>Before we know it we have 50+ switch statements, with 50+ enums!</p>
-                        <p>Again, how do you <font color="green">test</font> it?</p>
-                        <p>Here <code>process</code> is not closed for modification and not open for extension</p>
+                    <div class="ukaea">
+                        <p><strong>Why is this bad?</strong></p>
+                        <div style="text-align: left;margin-left:30px">
+                            <p>If we want to add another process, we needed to add another enum and switch statement to the <code>process</code> function</p>
+                            <p>Before we know it we have 50+ switch statements, with 50+ enums!</p>
+                            <p>Again, how do you <font color="green">test</font> it?</p>
+                            <p>Here <code>process</code> is not closed for modification and not open for extension</p>
+                        </div>
                     </div>
-                </div>
 
-            </section>
+                </section>
 
-            <!-- O is for ... -->
-            <section id="o-slide4" data-state="headerO2">
+                <section data-state="headerO2">
 
                     <style>.headerO2 header:after { content: "O"; }</style>
                     <div class="ukaea">
@@ -331,8 +329,7 @@ struct PlasmaComputeProcess : public INonConstProcess{
     
                 </section>
 
-            <!-- O is for ... -->
-            <section id="o-slide5" data-state="headerO2">
+                <section data-state="headerO2">
 
                     <div class="ukaea">
                         <p><strong>Why is this better?</strong></p>
@@ -344,11 +341,10 @@ struct PlasmaComputeProcess : public INonConstProcess{
                             <p>Very easy to mock to test logic</p>
                         </div>
                     </div>
-    
-            </section>
+        
+                </section>
 
-            <!-- O is for ... -->
-            <section id="o-slide6" data-state="headerO2">
+                <section data-state="headerO2">
 
                     <div class="ukaea">
                         <p><strong>Mocking is now easy</strong></p>
@@ -367,11 +363,13 @@ manager.run();
 </code></pre>
                         </div>
                     </div>
+                </section>
     
             </section>
 
             <!-- L is for ... -->
-            <section id="l-slide" data-state="headerL">
+            <section id="l-slide" ">
+                <section data-state="headerL">
 
                     <style>.headerL header:after { content: "L = Liskov substitution"; }</style>
                     <div class="ukaea">
@@ -381,10 +379,9 @@ manager.run();
                     <br />
                     <p>What does that even mean?</p>
                     <p><strong>is-a</strong> or <strong>has-a</strong> relationship</p>
-            </section>
+                </section>
 
-            <!-- L is for ... -->
-            <section id="l-slide2" data-state="headerL2">
+                <section data-state="headerL2">
 
                     <style>.headerL2 header:after { content: "L"; }</style>
                     <div class="ukaea">
@@ -410,13 +407,12 @@ manager.run();
             "NormalisedHistogramPlot::setYLabel - Should not be called!");
     }
 }</code></pre>
+                            </div>
                         </div>
-                    </div>
-    
-            </section>
+        
+                </section>
 
-            <!-- L is for ... -->
-            <section id="l-slide3" data-state="headerL2">
+                <section data-state="headerL2">
 
                     <style>.headerL2 header:after { content: "L"; }</style>
                     <div class="ukaea">
@@ -437,10 +433,9 @@ void testPlot(std::shared_ptr< Plot >& plot,
                         </div>
                     </div>
     
-            </section>
+                </section>
 
-            <!-- L is for ... -->
-            <section id="l-slide4" data-state="headerL2">
+                <section data-state="headerL2">
 
                     <style>.headerL2 header:after { content: "L"; }</style>
                     <div class="ukaea">
@@ -453,20 +448,20 @@ void testPlot(std::shared_ptr< Plot >& plot,
                             <p>Better to rethink your object relationships and architecture</p>
                         </div>
                     </div>
+                </section>
     
             </section>
 
             <!-- I is for ... -->
-            <section id="i-slide" data-state="headerI">
-
+            <section id="i-slide">
+                <section data-state="headerI">
                     <style>.headerI header:after { content: "I = Interface segregation"; }</style>
                     <p>No client should be forced to depend on methods it does not use or need</p>
                     <img data-src="./assets/complex.jpg" height="200" width="300" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
                     <p>Favour smaller, concise interfaces over larger interfaces</p>
                 </section>
     
-                <!-- I is for ... -->
-                <section id="i-slide2" data-state="headerI2">
+                <section data-state="headerI2">
     
                     <style>.headerI2 header:after { content: "I"; }</style>
                     <div class="ukaea">
@@ -489,8 +484,7 @@ struct IEverything{
     
                 </section>
 
-            <!-- L is for ... -->
-            <section id="i-slide3" data-state="headerI2">
+                <section data-state="headerI2">
 
                     <style>.headerI2 header:after { content: "I"; }</style>
                     <div class="ukaea">
@@ -503,16 +497,15 @@ struct IEverything{
                         </div>
                     </div>
     
-            </section>
+                </section>
 
-                <!-- I is for ... -->
-                <section id="i-slide4" data-state="headerI2">
+                <section data-state="headerI2">
     
-                        <style>.headerI2 header:after { content: "I"; }</style>
-                        <div class="ukaea">
-                            <p><font color="green">This is better</font></p>
-                            <div style="text-align: center;">
-                                <pre><code class="cpp" data-trim data-noescape contenteditable>// beware the 'ible's
+                    <style>.headerI2 header:after { content: "I"; }</style>
+                    <div class="ukaea">
+                        <p><font color="green">This is better</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>// beware the 'ible's
 struct IResetible{
     virtual void reset() = 0;
 };
@@ -533,21 +526,35 @@ struct NoCheatGuesser : public IConstValidatible,
 {
     //...
 }
-                                </code></pre>
-                            </div>
+                            </code></pre>
                         </div>
-        
+                    </div>
                 </section>
+    
+            </section>
                 
             <!-- D is for ... -->
-            <section id="d-slide" data-state="headerD">
-
+            <!-- D.I is not dependency injection it is inversion -->
+            <section id="d-slide">
+                <section data-state="headerD">
                     <style>.headerD header:after { content: "D = Dependency inversion"; }</style>
-                    <div class="ukaea">
-                        <p>Depend on <strong>abstractions</strong> (interfaces) not <strong>concretions</strong> (implementation)</p>
-                    </div>
+                    <br />
+                    <p style="font-size: 24px;">*Inversion, not injection.</p>
+                    <p>Depend on <strong>abstractions</strong> (interfaces) not <strong>concretions</strong> (implementation)</p>
                     <p>High level modules should not depend on low level modules</p>
-                    <p>Abstractions should not depend on details</p>
+                    <img data-src="./assets/plug.jpg" height="180" width="285" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                </section>
+
+                <section data-state="headerD2">
+                    <style>.headerD2 header:after { content: "D"; }</style>
+                    <div style="text-align: left;margin-left:30px; font-size: 34px">
+                        <p>This does not just mean abstracting our implementation (creating an interface)</p>
+                        <p>The interface 'owns' the implementation, not the other way around</p>
+                        <p>If <strong>A</strong> depends on <strong>B</strong>, we don't want the changes in <strong>B</strong> to affect <strong>A</strong></p>
+                        <p><strong>A</strong> should dictate the interface for <strong>B</strong> to conform to</p>
+                        <p>Define in terms of <strong>A</strong>'s needs, not <strong>B</strong>'s behaviour</p>
+                    </div>
+                </section>
             </section>
 
             <!-- Finish D by example - DB connection is a good one -->
@@ -569,6 +576,24 @@ struct NoCheatGuesser : public IConstValidatible,
                 </div>
                 
             </section>
+
+            <!-- Resources Slide -->
+            <section id="resources-slide">
+
+                    <div class="ukaea">
+                        <h2>Resources</h2>
+                        <div style="text-align: left;margin-left:30px">
+                            <ul>
+                                <li><a href="https://lostechies.com/derickbailey/2011/09/22/dependency-injection-is-not-the-same-as-the-dependency-inversion-principle/">lostechies</a></li>
+                                <li><a href="http://aspiringcraftsman.com/2008/12/28/examining-dependency-inversion/">aspiringcraftsman</a></li>
+                                <li><a href="https://en.wikipedia.org/wiki/SOLID">Wiki</a></li>
+                                <li><a href="https://martinfowler.com/articles/dipInTheWild.html">martinfowler</a></li>
+                                <li><a href="https://www.tomdalling.com/blog/software-design/solid-class-design-the-open-closed-principle/">tomdalling</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </section>
             
         </div> <!-- End slides -->
 
