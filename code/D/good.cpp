@@ -70,7 +70,7 @@ struct AnotherLoggerAdapter : public ISimpleLogger{
     }
 
   private:
-    // internal logger
+    // external logger
     LoggerFromAnotherLib _logger;
 };
 
@@ -93,7 +93,7 @@ struct MockNoErrorLogger : public ISimpleLogger{
     }
 };
 
-// our class depends on the implementation of VerySimpleLogger
+// our class depends on the interface we dictated
 struct MyCoolClass{
 
     // create the class using construction injection

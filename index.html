@@ -99,10 +99,10 @@
                     <p><font color="red">Why bother?</font> - Computers only care about bytes!</p>
                     <!-- <div style="text-align: left"> -->
                       <ul>
-                          <li>Humans develop code, not machines (yet)</li>
-                          <li>Humans work with other humans to develop code</li>
-                          <li>Humans need to understand other humans' code</li>
-                          <li>Humans writing code cost money</li>
+                          <li><font color="blue">Humans</font> develop code, not machines (yet)</li>
+                          <li><font color="blue">Humans</font> work with other humans to develop code</li>
+                          <li><font color="blue">Humans</font> need to understand other humans' code</li>
+                          <li><font color="blue">Humans</font> writing code cost money</li>
                       </ul>
                 </div>
 
@@ -112,15 +112,12 @@
             <section id="motivation2-slide">
 
                 <div class="ukaea">
-                    <p><font color="green">Things change</font></p>
-                    <!-- <div style="text-align: left"> -->
-                      <ul>
-                          <li>Changes cause other changes</li>
-                          <li>Cascade of changes follow from one small change</li>
-                          <li>You didn't plan for your application to change like this</li>
-                      </ul>                    
-                      <p>Implementing one small change can break everything and be very costly!</p>
-                      <img data-src="./assets/spaghetti.jpg" height="200" width="200" align="middle" style="background:none; border:1px solid black; box-shadow:none;">
+                    <img data-src="./assets/change.jpg" height="120" width="300" align="middle" style="background:none; border:none; box-shadow:none;">
+                    <p><font color="green">Changes</font> cause other <font color="red">changes</font></p>
+                    <p>Cascade of <font color="green">changes</font> follow from one small <font color="red">change</font></p>
+                    <p>You didn't plan for your application to <font color="green">change</font> like this</p>
+                    <br />
+                    <p><font color="blue">Implementing one small change can break everything and be very costly!</font></p>
                 </div>
 
             </section>
@@ -370,15 +367,11 @@ manager.run();
             <!-- L is for ... -->
             <section id="l-slide" ">
                 <section data-state="headerL">
-
                     <style>.headerL header:after { content: "L = Liskov substitution"; }</style>
-                    <div class="ukaea">
-                        <p>If <strong>S</strong> is a subtype of <strong>T</strong>, then objects of type <strong>T</strong> may be replaced with objects of type <strong>S</strong> without altering the correctness (no side effects) of the program</p>
-                    </div>
-                    <br />
-                    <br />
-                    <p>What does that even mean?</p>
-                    <p><strong>is-a</strong> or <strong>has-a</strong> relationship</p>
+                    <p>If <strong>S</strong> is a subtype of <strong>T</strong>, then objects of type <strong>T</strong> may be replaced with objects of type <strong>S</strong> without altering the correctness (no side effects) of the program</p>
+                    <img data-src="./assets/liskov.jpg" height="180" width="200" align="middle" style="background:none; border:none; box-shadow:none;">
+                    <!-- <p>What does that even mean?</p> -->
+                    <p style="font-size:22px;"><strong>is-a</strong> or <strong>has-a</strong> relationship</p>
                 </section>
 
                 <section data-state="headerL2">
@@ -548,13 +541,121 @@ struct NoCheatGuesser : public IConstValidatible,
                 <section data-state="headerD2">
                     <style>.headerD2 header:after { content: "D"; }</style>
                     <div style="text-align: left;margin-left:30px; font-size: 34px">
-                        <p>This does not just mean abstracting our implementation (creating an interface)</p>
-                        <p>The interface 'owns' the implementation, not the other way around</p>
+                        <p>This does not just mean <i>abstracting</i> our implementation (creating an interface)</p>
+                        <p>The interface <font color="blue">'owns'</font> the implementation, not the other way around</p>
                         <p>If <strong>A</strong> depends on <strong>B</strong>, we don't want the changes in <strong>B</strong> to affect <strong>A</strong></p>
                         <p><strong>A</strong> should dictate the interface for <strong>B</strong> to conform to</p>
                         <p>Define in terms of <strong>A</strong>'s needs, not <strong>B</strong>'s behaviour</p>
                     </div>
                 </section>
+
+                <section data-state="headerD2">
+                    <style>.headerD2 header:after { content: "D"; }</style>
+                    <div class="ukaea">
+                        <p><font color="red">Don't do this</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>// our class depends on the implementation of VerySimpleLogger
+struct MyCoolClass{
+
+    void method1(){
+        _logger.addMessage("Called method1!");
+        //other stuff
+    }
+    // more stuff ...
+
+  private:
+    // to change this logger to another i.e. BetterLogger
+    // from external library would cause
+    // us to change the implementation in this class
+    VerySimpleLogger _logger;
+};                       </code></pre>
+                    </div>
+                </section>
+
+                <section data-state="headerD2">
+
+                    <style>.headerD2 header:after { content: "D"; }</style>
+                    <div class="ukaea">
+                        <p><strong>Why is this bad?</strong></p>
+                        <div style="text-align: left;margin-left:30px">
+                            <p>We are strongly <font color="red"><i>coupled</i></font> to implementation of <code>VerySimpleLogger</code></p>
+                            <p>We therefore break Open/Closed principle</p>
+                            <p>What if we want to change our logging library to something better?</p>
+                            <p>Did I mention testing?</p>
+                        </div>
+                    </div>
+    
+                </section>
+
+                <section data-state="headerD2">
+                    <style>.headerD2 header:after { content: "D"; }</style>
+                    <div class="ukaea">
+                        <p><font color="green">This is better</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>// remember the I - only provide an interface for what you need
+// we dictate the interface we need,
+// we invert the dependency
+// by depending on the interface,
+// not the specific implementation of a logger
+struct ISimpleLogger{
+    virtual void append(std::string message) = 0;
+    virtual size_t size() const = 0;
+    virtual std::string get(int index) const = 0;
+    virtual operator bool() const = 0;
+};</code></pre>
+                    </div>
+                </section>
+
+                <section data-state="headerD2">
+                    <style>.headerD2 header:after { content: "D"; }</style>
+                    <div class="ukaea">
+                        <p><font color="green">This is better</font></p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>// Wraps the simple logger
+class SimpleLoggerAdapter : public ISimpleLogger{
+    VerySimpleLogger _logger;
+    // ...
+};
+// wraps the another logger 
+struct AnotherLoggerAdapter : public ISimpleLogger{
+    // ...
+};</code></pre>
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>// our class depends on the interface we dictated
+struct MyCoolClass{
+    // create the class using construction injection
+    MyCoolClass(ISimpleLogger& logger) : _logger(logger) {}
+    // ...
+  private:
+    // this is now an interface
+    // set by our code not the external library
+    ISimpleLogger& _logger;
+};</code></pre>
+                    </div>
+                </section>
+
+
+                <section data-state="headerD2">
+                    <style>.headerD2 header:after { content: "D"; }</style>
+                    <div class="ukaea">
+                        <p>Now at the call site it is clear</p>
+                        <div style="text-align: center;">
+                            <pre><code class="cpp" data-trim data-noescape contenteditable>{
+    // we can easily replace the logger now 
+    SimpleLoggerAdapter logger;
+    // AnotherLoggerAdapter logger;
+    // MockNoErrorLogger logger;
+
+    // class that depends on logger
+    MyCoolClass cc(logger);
+
+    // has error?
+    if(logger){
+        // ...
+    }
+}</code></pre>
+                    </div>
+                </section>
+
             </section>
 
             <!-- Finish D by example - DB connection is a good one -->
@@ -564,12 +665,12 @@ struct NoCheatGuesser : public IConstValidatible,
 
                 <div class="ukaea">
                     <h2>Summary</h2>
-                    <div style="text-align: left;margin-left:30px">
+                    <div style="text-align: left;margin-left:-30px">
                         <p><font color="blue">Think before you write</font></p>
                         <ul>
-                            <li>SOLID is a guideline for writing good, maintainable code</li>
-                            <li>SOLID can should be applied to OO - Java, C#. Even C++, Fortran and Python</li>
-                            <li>SOLID code can make your life easier in the long run!</li>
+                            <li><strong>SOLID</strong> is a guideline for writing good, maintainable code</li>
+                            <li><strong>SOLID</strong> can be applied to OO - Java, C#. Even C++, Fortran and Python</li>
+                            <li><strong>SOLID</strong> code can make development easier in the long run!</li>
                         </ul>
                     </div>
                     <p>Full example code for each S-O-L-I-D and these slides available at <a href="https://github.com/thomasms/solid_talk">https://github.com/thomasms/solid_talk</a></p>
